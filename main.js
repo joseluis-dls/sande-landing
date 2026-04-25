@@ -41,12 +41,12 @@ gsap.registerPlugin(ScrollTrigger);
 const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
 heroTl
-  .from('.hero-origin',  { opacity: 0, y: -16, duration: 0.5 })
-  .from('.hero h1',      { opacity: 0, y: 36,  duration: 0.75 }, '-=0.2')
-  .from('.hero-sub',     { opacity: 0, y: 24,  duration: 0.6  }, '-=0.35')
-  .from('.hero-actions', { opacity: 0, y: 20,  duration: 0.5  }, '-=0.3')
-  .from('.hero-divider', { scaleX: 0, transformOrigin: 'left', duration: 0.6 }, '-=0.2')
-  .from('.hero-stat',    { opacity: 0, y: 16,  duration: 0.5, stagger: 0.15 }, '-=0.3');
+  .from('.hero-origin',   { opacity: 0, y: -16, duration: 0.5 })
+  .from('.hero h1',       { opacity: 0, y: 36,  duration: 0.75 }, '-=0.2')
+  .from('.hero-sub',      { opacity: 0, y: 24,  duration: 0.6  }, '-=0.35')
+  .from('.hero-actions',  { opacity: 0, y: 20,  duration: 0.5  }, '-=0.3')
+  .from('.hero-divider',  { scaleX: 0, transformOrigin: 'left', duration: 0.6 }, '-=0.2')
+  .from('.hero-stat',     { opacity: 0, y: 16,  duration: 0.5, stagger: 0.15 }, '-=0.3');
 
 
 // ─── COBERTURA ───────────────────────────────────────────────────
@@ -97,6 +97,18 @@ gsap.from('.proceso-header .section-kicker, .proceso-header .section-title', {
 gsap.from('.paso-h', {
   scrollTrigger: { trigger: '.proceso-flow', start: 'top 82%' },
   opacity: 0, y: 36, duration: 0.6, stagger: 0.13, ease: 'power3.out'
+});
+
+
+// ─── GALERÍA ─────────────────────────────────────────────────────
+gsap.from('.galeria-header > div, .galeria-ver-mas', {
+  scrollTrigger: { trigger: '.galeria', start: 'top 78%' },
+  opacity: 0, y: 24, duration: 0.65, stagger: 0.12, ease: 'power3.out'
+});
+
+gsap.from('.gcard:not(.gcard--extra)', {
+  scrollTrigger: { trigger: '.galeria-grid', start: 'top 85%' },
+  opacity: 0, y: 30, duration: 0.55, stagger: 0.1, ease: 'power3.out'
 });
 
 
@@ -157,7 +169,27 @@ gsap.from('.seg-info-card', {
 
 
 // ─── CTA ─────────────────────────────────────────────────────────
-gsap.from('.cta-band h2, .cta-band p, .cta-btn', {
-  scrollTrigger: { trigger: '.cta-band', start: 'top 80%' },
+gsap.from('.cta-band h2, .cta-band p', {
+  scrollTrigger: { trigger: '.cta-band', start: 'top 95%', once: true },
   opacity: 0, y: 30, duration: 0.6, stagger: 0.15, ease: 'power3.out'
 });
+
+
+// ─── GALERÍA: ver todas / ocultar ────────────────────────────────
+const galeriaToggle = document.getElementById('galeria-toggle');
+const galeriaGrid   = document.getElementById('galeria-grid');
+
+if (galeriaToggle && galeriaGrid) {
+  galeriaToggle.addEventListener('click', () => {
+    const expanded = galeriaGrid.classList.toggle('expanded');
+    galeriaToggle.setAttribute('aria-expanded', String(expanded));
+    galeriaToggle.childNodes[0].nodeValue = expanded ? 'Ver menos ' : 'Ver todas las fotos ';
+
+    if (expanded) {
+      // Anima las tarjetas recién visibles
+      gsap.from('.gcard--extra', {
+        opacity: 0, y: 24, duration: 0.45, stagger: 0.07, ease: 'power3.out'
+      });
+    }
+  });
+}
