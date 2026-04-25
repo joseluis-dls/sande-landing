@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sandetransportes.com.mx/sitemap.xml
