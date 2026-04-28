@@ -36,29 +36,34 @@ window.addEventListener('scroll', () => {
 // ─── GSAP + ScrollTrigger ────────────────────────────────────────
 gsap.registerPlugin(ScrollTrigger);
 
+// Defaults compartidos para todas las animaciones de scroll
+const st = (trigger, start = 'top 82%') => ({
+  trigger, start, once: true
+});
+const cp = 'transform,opacity';
+
 
 // ─── HERO: entrada en secuencia ──────────────────────────────────
-const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+const heroTl = gsap.timeline({ defaults: { ease: 'power3.out', clearProps: cp } });
 
 heroTl
   .from('.hero-origin',   { opacity: 0, y: -16, duration: 0.5 })
   .from('.hero h1',       { opacity: 0, y: 36,  duration: 0.75 }, '-=0.2')
   .from('.hero-sub',      { opacity: 0, y: 24,  duration: 0.6  }, '-=0.35')
   .from('.hero-actions',  { opacity: 0, y: 20,  duration: 0.5  }, '-=0.3')
-  .from('.hero-divider',  { scaleX: 0, transformOrigin: 'left', duration: 0.6 }, '-=0.2')
+  .from('.hero-divider',  { scaleX: 0, transformOrigin: 'left', duration: 0.6, clearProps: 'transform' }, '-=0.2')
   .from('.hero-stat',     { opacity: 0, y: 16,  duration: 0.5, stagger: 0.15 }, '-=0.3');
 
 
 // ─── COBERTURA ───────────────────────────────────────────────────
 gsap.from('.cob-header .section-kicker, .cob-header .section-title, .cob-tagline', {
-  scrollTrigger: { trigger: '.cobertura', start: 'top 80%' },
-  opacity: 0, y: 22, duration: 0.7, stagger: 0.13, ease: 'power3.out'
+  scrollTrigger: st('.cobertura', 'top 80%'),
+  opacity: 0, y: 22, duration: 0.7, stagger: 0.13, ease: 'power3.out', clearProps: cp
 });
 
-// Mapa: fade al entrar
 gsap.from('.map-wrapper', {
-  scrollTrigger: { trigger: '.cobertura', start: 'top 85%' },
-  opacity: 0, duration: 0.9, ease: 'power2.out'
+  scrollTrigger: st('.cobertura', 'top 85%'),
+  opacity: 0, duration: 0.9, ease: 'power2.out', clearProps: 'opacity'
 });
 
 // Líneas del mapa
@@ -66,7 +71,7 @@ gsap.utils.toArray('.map-linea').forEach((line, i) => {
   const length = line.getTotalLength ? line.getTotalLength() : 400;
   gsap.set(line, { strokeDasharray: length, strokeDashoffset: length });
   gsap.to(line, {
-    scrollTrigger: { trigger: '.cobertura', start: 'top 80%' },
+    scrollTrigger: st('.cobertura', 'top 80%'),
     strokeDashoffset: 0,
     duration: 1.1,
     delay: 0.5 + i * 0.09,
@@ -74,76 +79,75 @@ gsap.utils.toArray('.map-linea').forEach((line, i) => {
   });
 });
 
-// Puntos de ciudad
 gsap.from('.map-ciudad circle', {
-  scrollTrigger: { trigger: '.cobertura', start: 'top 80%' },
+  scrollTrigger: st('.cobertura', 'top 80%'),
   scale: 0, transformOrigin: 'center',
   duration: 0.3, stagger: 0.06, delay: 0.9,
-  ease: 'back.out(2.5)'
+  ease: 'back.out(2.5)', clearProps: 'transform'
 });
 
 gsap.from('.map-ciudad text', {
-  scrollTrigger: { trigger: '.cobertura', start: 'top 80%' },
+  scrollTrigger: st('.cobertura', 'top 80%'),
   opacity: 0, duration: 0.3, stagger: 0.06, delay: 1.1,
-  ease: 'power2.out'
+  ease: 'power2.out', clearProps: 'opacity'
 });
+
 
 // ─── PROCESO HORIZONTAL ──────────────────────────────────────────
 gsap.from('.proceso-header .section-kicker, .proceso-header .section-title', {
-  scrollTrigger: { trigger: '.proceso-section', start: 'top 78%' },
-  opacity: 0, y: 28, duration: 0.7, stagger: 0.14, ease: 'power3.out'
+  scrollTrigger: st('.proceso-section', 'top 78%'),
+  opacity: 0, y: 28, duration: 0.7, stagger: 0.14, ease: 'power3.out', clearProps: cp
 });
 
 gsap.from('.paso-h', {
-  scrollTrigger: { trigger: '.proceso-flow', start: 'top 82%' },
-  opacity: 0, y: 36, duration: 0.6, stagger: 0.13, ease: 'power3.out'
+  scrollTrigger: st('.proceso-flow'),
+  opacity: 0, y: 36, duration: 0.6, stagger: 0.13, ease: 'power3.out', clearProps: cp
 });
 
 
 // ─── GALERÍA ─────────────────────────────────────────────────────
 gsap.from('.galeria-header > div, .galeria-ver-mas', {
-  scrollTrigger: { trigger: '.galeria', start: 'top 78%' },
-  opacity: 0, y: 24, duration: 0.65, stagger: 0.12, ease: 'power3.out'
+  scrollTrigger: st('.galeria', 'top 78%'),
+  opacity: 0, y: 24, duration: 0.65, stagger: 0.12, ease: 'power3.out', clearProps: cp
 });
 
 gsap.from('.gcard:not(.gcard--extra)', {
-  scrollTrigger: { trigger: '.galeria-grid', start: 'top 85%' },
-  opacity: 0, y: 30, duration: 0.55, stagger: 0.1, ease: 'power3.out'
+  scrollTrigger: st('.galeria-grid', 'top 85%'),
+  opacity: 0, y: 30, duration: 0.55, stagger: 0.1, ease: 'power3.out', clearProps: cp
 });
 
 
 // ─── SERVICIOS: cards escalonadas ────────────────────────────────
 gsap.from('.servicios .section-kicker, .servicios .section-title, .servicios .section-sub', {
-  scrollTrigger: { trigger: '.servicios', start: 'top 78%' },
-  opacity: 0, y: 30, duration: 0.7, stagger: 0.15, ease: 'power3.out'
+  scrollTrigger: st('.servicios', 'top 78%'),
+  opacity: 0, y: 30, duration: 0.7, stagger: 0.15, ease: 'power3.out', clearProps: cp
 });
 
 gsap.from('.scard', {
-  scrollTrigger: { trigger: '.servicios-grid', start: 'top 82%' },
-  opacity: 0, y: 50, duration: 0.65, stagger: 0.12, ease: 'power3.out'
+  scrollTrigger: st('.servicios-grid'),
+  opacity: 0, y: 50, duration: 0.65, stagger: 0.12, ease: 'power3.out', clearProps: cp
 });
 
 
 // ─── SEGURIDAD ───────────────────────────────────────────────────
 gsap.from('.seguridad .section-kicker, .seguridad .section-title, .seguridad .section-sub', {
-  scrollTrigger: { trigger: '.seguridad', start: 'top 78%' },
-  opacity: 0, y: 30, duration: 0.7, stagger: 0.15, ease: 'power3.out'
+  scrollTrigger: st('.seguridad', 'top 78%'),
+  opacity: 0, y: 30, duration: 0.7, stagger: 0.15, ease: 'power3.out', clearProps: cp
 });
 
 gsap.from('.seg-item', {
-  scrollTrigger: { trigger: '.seg-inner', start: 'top 80%' },
-  opacity: 0, x: -30, duration: 0.55, stagger: 0.15, ease: 'power3.out'
+  scrollTrigger: st('.seg-inner', 'top 80%'),
+  opacity: 0, x: -30, duration: 0.55, stagger: 0.15, ease: 'power3.out', clearProps: cp
 });
 
 gsap.from('.exp-block', {
-  scrollTrigger: { trigger: '.exp-block', start: 'top 82%' },
-  opacity: 0, scale: 0.92, duration: 0.7, ease: 'power3.out'
+  scrollTrigger: st('.exp-block'),
+  opacity: 0, scale: 0.92, duration: 0.7, ease: 'power3.out', clearProps: cp
 });
 
 // Contador: 0 → 5
 const expNumEl = document.querySelector('.exp-num');
 if (expNumEl) {
-  const plusSpan = expNumEl.querySelector('span');
   ScrollTrigger.create({
     trigger: '.exp-block',
     start: 'top 82%',
@@ -163,33 +167,97 @@ if (expNumEl) {
 }
 
 gsap.from('.seg-info-card', {
-  scrollTrigger: { trigger: '.seg-info-cards', start: 'top 85%' },
-  opacity: 0, y: 20, duration: 0.5, stagger: 0.1, ease: 'power3.out'
+  scrollTrigger: st('.seg-info-cards', 'top 85%'),
+  opacity: 0, y: 20, duration: 0.5, stagger: 0.1, ease: 'power3.out', clearProps: cp
 });
 
 
 // ─── CTA ─────────────────────────────────────────────────────────
 gsap.from('.cta-band h2, .cta-band p', {
-  scrollTrigger: { trigger: '.cta-band', start: 'top 95%', once: true },
-  opacity: 0, y: 30, duration: 0.6, stagger: 0.15, ease: 'power3.out'
+  scrollTrigger: st('.cta-band', 'top 95%'),
+  opacity: 0, y: 30, duration: 0.6, stagger: 0.15, ease: 'power3.out', clearProps: cp
 });
 
 
-// ─── GALERÍA: ver todas / ocultar ────────────────────────────────
-const galeriaToggle = document.getElementById('galeria-toggle');
-const galeriaGrid   = document.getElementById('galeria-grid');
+// ─── LIGHTBOX ────────────────────────────────────────────────────
+(function () {
+  const overlay  = document.getElementById('lb-overlay');
+  const lbImg    = document.getElementById('lb-img');
+  const lbClose  = document.getElementById('lb-close');
+  const lbPrev   = document.getElementById('lb-prev');
+  const lbNext   = document.getElementById('lb-next');
+  const lbCounter = document.getElementById('lb-counter');
 
-if (galeriaToggle && galeriaGrid) {
-  galeriaToggle.addEventListener('click', () => {
-    const expanded = galeriaGrid.classList.toggle('expanded');
-    galeriaToggle.setAttribute('aria-expanded', String(expanded));
-    galeriaToggle.childNodes[0].nodeValue = expanded ? 'Ver menos ' : 'Ver todas las fotos ';
+  // Todas las imágenes de la galería (incluidas las ocultas)
+  const getImages = () => Array.from(document.querySelectorAll('.galeria-grid .gcard img'));
 
-    if (expanded) {
-      // Anima las tarjetas recién visibles
-      gsap.from('.gcard--extra', {
-        opacity: 0, y: 24, duration: 0.45, stagger: 0.07, ease: 'power3.out'
-      });
-    }
+  let current = 0;
+
+  function open(index) {
+    const imgs = getImages();
+    current = index;
+    lbImg.src = imgs[current].src;
+    lbImg.alt = imgs[current].alt;
+    updateNav(imgs.length);
+    overlay.removeAttribute('hidden');
+    requestAnimationFrame(() => overlay.classList.add('lb-visible'));
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  }
+
+  function close() {
+    overlay.classList.remove('lb-visible');
+    overlay.addEventListener('transitionend', () => {
+      overlay.setAttribute('hidden', '');
+      document.body.style.overflow = '';
+    }, { once: true });
+  }
+
+  function navigate(dir) {
+    const imgs = getImages();
+    current = (current + dir + imgs.length) % imgs.length;
+    lbImg.style.opacity = '0';
+    setTimeout(() => {
+      lbImg.src = imgs[current].src;
+      lbImg.alt = imgs[current].alt;
+      lbImg.style.opacity = '1';
+      updateNav(imgs.length);
+    }, 150);
+  }
+
+  function updateNav(total) {
+    lbCounter.textContent = `${current + 1} / ${total}`;
+    lbPrev.disabled = false;
+    lbNext.disabled = false;
+  }
+
+  // Clic en cualquier imagen de la galería
+  document.getElementById('galeria-grid').addEventListener('click', e => {
+    const img = e.target.closest('.gcard img');
+    if (!img) return;
+    const imgs = getImages();
+    open(imgs.indexOf(img));
   });
-}
+
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click', () => navigate(-1));
+  lbNext.addEventListener('click', () => navigate(1));
+
+  // Clic fuera de la imagen
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) close();
+  });
+
+  // Teclado
+  document.addEventListener('keydown', e => {
+    if (overlay.hasAttribute('hidden')) return;
+    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowLeft')  navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  });
+
+  // Transición suave de opacidad en la imagen al cambiar
+  lbImg.style.transition = 'opacity 0.15s ease';
+})();
+
+
