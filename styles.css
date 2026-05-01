@@ -593,28 +593,89 @@ nav.scrolled {
 
 /* ─── FOOTER ────────────────────────────────────────── */
 footer {
-  background: var(--white); padding:2.2rem 5%;
-  display:flex; align-items:center; justify-content:space-between;
-  border-top:3px solid var(--red);
-  gap: 1.5rem;
+  background: var(--navy-dark);
+  border-top: 3px solid var(--red);
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
-.foot-logo { display:flex; align-items:center; gap:14px; }
-.foot-logo-img { height:36px; width:auto; display:block; }
-.foot-logo-name { font-size:13px; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:0.1em; display:block; }
-.foot-razon { font-size:11px; color:var(--gray-500); display:block; margin-top:2px; letter-spacing:0.03em; }
-.foot-contact { display:flex; align-items:center; gap:1.2rem; flex-shrink:0; }
-.foot-tel { font-size:13px; color:var(--navy); text-decoration:none; font-weight:600; letter-spacing:0.03em; transition:color 0.2s; }
-.foot-tel:hover { color:var(--red); }
-.foot-wa {
-  font-size:12px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
-  color:var(--red); text-decoration:none;
-  border:1px solid rgba(192,57,43,0.35); padding:0.3rem 0.8rem;
-  border-radius:2px; transition:all 0.2s;
+.foot-inner {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.5fr;
+  gap: 3rem;
+  padding: 4rem 5% 3rem;
 }
-.foot-wa:hover { background:rgba(192,57,43,0.08); }
-.foot-privacy { font-size:10px; color:var(--gray-500); text-decoration:none; display:block; margin-top:4px; transition:color 0.2s; }
-.foot-privacy:hover { color:var(--red); }
+
+/* — Columna 1: Brand — */
+.foot-brand {}
+.foot-logo-link {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; margin-bottom: 1.1rem;
+}
+.foot-logo-img { height: 36px; width: auto; display: block; }
+.foot-brand-name {
+  font-size: 13px; font-weight: 800; color: var(--white);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.foot-tagline {
+  font-size: 1rem; font-weight: 700; color: var(--white);
+  line-height: 1.45; margin-bottom: 1.6rem;
+}
+.foot-razon {
+  font-size: 11px; color: rgba(255,255,255,0.3);
+  letter-spacing: 0.03em; margin-bottom: 1.6rem;
+}
+.foot-social { display: flex; gap: 0.6rem; }
+.foot-social-link {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.45rem 0.85rem 0.45rem 0.65rem;
+  border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.55); text-decoration: none;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.03em;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.foot-social-link svg { width: 15px; height: 15px; flex-shrink: 0; }
+.foot-social-link:hover {
+  border-color: var(--red); color: var(--white);
+  background: rgba(192,57,43,0.12);
+}
+
+/* — Columnas 2 y 3: Nav / Contacto — */
+.foot-col-title {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--red); margin-bottom: 1.2rem;
+}
+.foot-nav-list, .foot-contact-list {
+  list-style: none; display: flex; flex-direction: column; gap: 0.6rem;
+}
+.foot-nav-list a {
+  font-size: 13px; color: rgba(255,255,255,0.55);
+  text-decoration: none; transition: color 0.2s;
+}
+.foot-nav-list a:hover { color: var(--white); }
+.foot-contact-item {
+  display: flex; align-items: flex-start; gap: 0.55rem;
+  font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.4;
+}
+.foot-contact-item svg {
+  width: 13px; height: 13px; flex-shrink: 0;
+  margin-top: 2px; color: var(--red);
+}
+.foot-contact-item a {
+  color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s;
+}
+.foot-contact-item a:hover { color: var(--white); }
+
+/* — Barra inferior — */
+.foot-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 5%;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  font-size: 11px; color: rgba(255,255,255,0.25); gap: 1rem;
+}
+.foot-bottom a {
+  color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.2s;
+}
+.foot-bottom a:hover { color: rgba(255,255,255,0.6); }
 
 /* ─── BOTÓN FLOTANTE WHATSAPP ────────────────────────── */
 .wa-float {
@@ -714,13 +775,14 @@ footer {
 @media(max-width:480px) {
   .hero-stats { gap:1.5rem; }
   .seg-info-cards { grid-template-columns:1fr; }
-  footer {
-    flex-direction:column;
-    align-items:flex-start;
-    gap:1.2rem;
-    padding:1.8rem 6%;
+  .foot-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    padding: 3rem 6% 2.5rem;
   }
-  .foot-contact { gap:1rem; }
+  .foot-brand { grid-column: 1 / -1; }
+  .foot-bottom { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .foot-inner { grid-template-columns: 1fr; }
   .cta-band h2 { font-size:1.6rem; }
   .cob-tagline { display: none; }
 }

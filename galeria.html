@@ -111,28 +111,36 @@
     .btn-red:hover { background: var(--red-light); transform: translateY(-2px); }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--white); padding: 2.2rem 5%;
-      display: flex; align-items: center; justify-content: space-between;
-      border-top: 3px solid var(--red); gap: 1.5rem; flex-wrap: wrap;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    footer { background: var(--navy-dark); border-top: 3px solid var(--red); font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    .foot-inner { display: grid; grid-template-columns: 1.5fr 1fr 1.5fr; gap: 3rem; padding: 4rem 5% 3rem; }
+    .foot-logo-link { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-bottom: 1.1rem; }
+    .foot-logo-link img { height: 36px; width: auto; }
+    .foot-brand-name { font-size: 13px; font-weight: 800; color: var(--white); text-transform: uppercase; letter-spacing: 0.1em; }
+    .foot-tagline { font-size: 1rem; font-weight: 700; color: var(--white); line-height: 1.45; margin-bottom: 1.6rem; }
+    .foot-razon { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.03em; margin-bottom: 1.6rem; }
+    .foot-social { display: flex; gap: 0.6rem; }
+    .foot-social-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.85rem 0.45rem 0.65rem; border-radius: 3px; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.55); text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.03em; transition: all 0.2s; }
+    .foot-social-link svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .foot-social-link:hover { border-color: var(--red); color: var(--white); background: rgba(192,57,43,0.12); }
+    .foot-col-title { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 1.2rem; }
+    .foot-nav-list, .foot-contact-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .foot-nav-list a { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+    .foot-nav-list a:hover { color: var(--white); }
+    .foot-contact-item { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.4; }
+    .foot-contact-item svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; color: var(--red); }
+    .foot-contact-item a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+    .foot-contact-item a:hover { color: var(--white); }
+    .foot-bottom { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 5%; border-top: 1px solid rgba(255,255,255,0.07); font-size: 11px; color: rgba(255,255,255,0.25); gap: 1rem; }
+    .foot-bottom a { color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.2s; }
+    .foot-bottom a:hover { color: rgba(255,255,255,0.6); }
+    @media(max-width:768px) {
+      .foot-inner { grid-template-columns: 1fr 1fr; gap: 2.5rem; padding: 3rem 6% 2.5rem; }
+      .foot-brand { grid-column: 1 / -1; }
+      .foot-bottom { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
     }
-    .foot-logo { display: flex; align-items: center; gap: 14px; }
-    .foot-logo img { height: 36px; width: auto; }
-    .foot-logo-name { font-size: 13px; font-weight: 800; color: var(--navy); text-transform: uppercase; letter-spacing: 0.1em; display: block; }
-    .foot-razon { font-size: 11px; color: var(--gray-500); display: block; margin-top: 2px; }
-    .foot-privacy { font-size: 10px; color: var(--gray-500); text-decoration: none; display: block; margin-top: 4px; transition: color 0.2s; }
-    .foot-privacy:hover { color: var(--red); }
-    .foot-contact { display: flex; align-items: center; gap: 1.2rem; }
-    .foot-tel { font-size: 13px; color: var(--navy); text-decoration: none; font-weight: 600; transition: color 0.2s; }
-    .foot-tel:hover { color: var(--red); }
-    .foot-wa {
-      font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--red); text-decoration: none;
-      border: 1px solid rgba(192,57,43,0.35); padding: 0.3rem 0.8rem;
-      border-radius: 2px; transition: all 0.2s;
+    @media(max-width:480px) {
+      .foot-inner { grid-template-columns: 1fr; }
     }
-    .foot-wa:hover { background: rgba(192,57,43,0.08); }
 
     /* ── LIGHTBOX ── */
     .lb-overlay {
@@ -234,17 +242,68 @@
 
 <!-- ── FOOTER ── -->
 <footer role="contentinfo">
-  <div class="foot-logo">
-    <img src="assets/images/logo.webp" alt="Sande Transportes" loading="lazy">
-    <div>
-      <span class="foot-logo-name">Sande Transportes</span>
-      <span class="foot-razon">Sande Maq S.A. de C.V. — Puerto de Manzanillo, Colima</span>
-      <a href="aviso-de-privacidad.html" class="foot-privacy">Aviso de privacidad</a>
+  <div class="foot-inner">
+
+    <!-- Brand -->
+    <div class="foot-brand">
+      <a href="index.html" class="foot-logo-link" aria-label="Sande Transportes — inicio">
+        <img src="assets/images/logo.webp" alt="Sande Transportes" loading="lazy">
+        <span class="foot-brand-name">Sande Transportes</span>
+      </a>
+      <p class="foot-tagline">Carga segura.<br>Entrega puntual.</p>
+      <p class="foot-razon">Sande Maq S.A. de C.V.</p>
+      <div class="foot-social">
+        <a href="https://instagram.com/sande_transportes" target="_blank" rel="noopener noreferrer" class="foot-social-link" aria-label="Instagram de Sande Transportes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          @sande_transportes
+        </a>
+      </div>
     </div>
+
+    <!-- Navegación -->
+    <div class="foot-nav">
+      <div class="foot-col-title">Navegación</div>
+      <ul class="foot-nav-list" role="list">
+        <li><a href="index.html#servicios">Servicios</a></li>
+        <li><a href="index.html#seguridad">Seguridad</a></li>
+        <li><a href="galeria.html">Galería</a></li>
+        <li><a href="index.html#contacto">Contacto</a></li>
+      </ul>
+    </div>
+
+    <!-- Contacto -->
+    <div class="foot-contact-col">
+      <div class="foot-col-title">Contacto</div>
+      <ul class="foot-contact-list" role="list">
+        <li class="foot-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Puerto de Manzanillo, Colima</span>
+        </li>
+        <li class="foot-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.38 2 2 0 0 1 3.57 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.75a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2z"/></svg>
+          <a href="tel:+523314707992">+52 33 1470 7992</a>
+        </li>
+        <li class="foot-contact-item">
+          <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          <a href="https://wa.me/523314707992" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </li>
+        <li class="foot-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:gerencia@sandemaq.com">gerencia@sandemaq.com</a>
+        </li>
+        <li class="foot-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:administracion@sandemaq.com">administracion@sandemaq.com</a>
+        </li>
+      </ul>
+    </div>
+
   </div>
-  <div class="foot-contact">
-    <a href="tel:+523314707992" class="foot-tel">+52 33 1470 7992</a>
-    <a href="https://wa.me/523314707992" target="_blank" rel="noopener noreferrer" class="foot-wa">WhatsApp</a>
+
+  <!-- Barra inferior -->
+  <div class="foot-bottom">
+    <span>© 2026 Sande Maq S.A. de C.V. — Todos los derechos reservados.</span>
+    <a href="aviso-de-privacidad.html">Aviso de privacidad</a>
   </div>
 </footer>
 
